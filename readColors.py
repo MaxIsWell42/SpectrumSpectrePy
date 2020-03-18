@@ -2,12 +2,16 @@ import sys
 import io
 import os
 from colorthief import ColorThief
+from urllib.request import urlopen
 
-fileName = "static/Peacock-1-650x425.jpg"
 
-def colorDetect():
+def colorDetect(image):
+    # Read the URL into an image
+    fd = urlopen(image)
+    f = io.BytesIO(fd.read())
+
     # Give the package an image to analyze
-    color_thief = ColorThief(fileName)
+    color_thief = ColorThief(f)
     # get the dominant color
     dominant_color = color_thief.get_color(quality=1)
     # build a color palette
