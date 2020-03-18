@@ -6,9 +6,11 @@ from urllib.request import urlopen
 
 
 def colorDetect(image):
-    # Read the URL into an image
-    fd = urlopen(image)
-    f = io.BytesIO(fd.read())
+    # Read the URL into an image, future feature
+    # fd = urlopen(image)
+    # f = io.BytesIO(fd.read())
+    
+    f = "static/screenshot.png"
 
     # Give the package an image to analyze
     color_thief = ColorThief(f)
