@@ -11,7 +11,7 @@ from urllib.request import urlopen
 
 # Snippet from https://stackoverflow.com/questions/9694165/convert-rgb-color-to-english-color-name-like-green-with-python
 def closest_colour(requested_colour):
-    """Get the closest color as an rgb value"""
+    """Get the closest color as an rgb value, takes in RGB value like (42, 43, 51)"""
     min_colours = {}
     # Change the html4 in this line to css3 for more but unsupported colors. This only uses the 16 essential colors.
     for key, name in webcolors.html4_hex_to_names.items():
@@ -29,7 +29,10 @@ def get_colour_name(requested_colour):
     except ValueError:
         closest_name = closest_colour(requested_colour)
         actual_name = None
-    return actual_name, closest_name
+    if actual_name:
+        return actual_name
+    else: 
+        return closest_name
 
 def colorDetect(image):
     # Read the URL into an image, future feature
@@ -43,14 +46,16 @@ def colorDetect(image):
     
     # Get the dominant color, saved in RGB color sequence as a tuple
     dominant_color = color_thief.get_color(quality=1)
+    # print(dominant_color)
     dc_name = get_colour_name(dominant_color)
 
     # Build a color palette, and run get_colour_name on each
+    palette_list = []
     palette = color_thief.get_palette(color_count=2, quality=5)
-    # for tup in palette:
-        
-        
-    print("Dominant color: \n{}\nPalette: \n{}".format(dc_name, palette))
+    for tup in palette:
+        palette_list.append(get_colour_name(tup))
+
+    print("Dominant color: \n{}\nPalette: \n{}".format(dc_name, palette_list))
 
 def colorCase(color):
     colors = {
