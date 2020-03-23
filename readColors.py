@@ -5,9 +5,13 @@ import string
 import webcolors
 from colorthief import ColorThief
 from urllib.request import urlopen
+from absl import flags
 
 # list_of_colors = [[255,0,0],[150,33,77],[75,99,23],[45,88,250],[250,0,255]]
 # color = [155,155,155]
+
+FLAGS = flags.FLAGS
+
 
 # Snippet from https://stackoverflow.com/questions/9694165/convert-rgb-color-to-english-color-name-like-green-with-python
 def closest_colour(requested_colour):
@@ -35,11 +39,14 @@ def get_colour_name(requested_colour):
         return closest_name
 
 def colorDetect(image):
-    # Read the URL into an image, future feature
-    # fd = urlopen(image)
-    # f = io.BytesIO(fd.read())
+    # Flag: Read the URL into an image(NOT CURRENTLY WORKING)
+    if FLAGS.link:
+        fd = urlopen(image)
+        f = io.BytesIO(fd.read())
     
-    f = "static/screenshot.png"
+    # Flag: Use screenshot for spectrum analysis
+    elif FLAGS.ss:
+        f = "static/screenshot.png"
 
     # Give the package an image to analyze
     color_thief = ColorThief(f)
@@ -55,8 +62,8 @@ def colorDetect(image):
         palette_list.append(get_colour_name(tup))
         
     # Print out the colors and descriptions for them   
-    print("Dominant color: \n{}\n".format(colorCase(dc_name)))
-    print("Color palette: \n")
+    print("Dominant color: \n   {}\n".format(colorCase(dc_name)))
+    print("Color palette: ")
     for name in palette_list:
         color_description = colorCase(name)
         print("     Color name: {}\n".format(color_description))
@@ -88,5 +95,6 @@ def colorCase(color):
 # https://www.verywellmind.com/color-psychology-2795824
 # https://www.bourncreative.com/meaning-of-the-color-silver/
 # https://colorpsychologymeaning.com/color-maroon-burgundy/
+# https://www.colorpsychology.org/teal/
 
 

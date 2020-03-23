@@ -4,12 +4,13 @@ import time
 
 def captureDesktop():
     # Wait 3 seconds so the user can switch to another screen, while counting down
-    time.sleep(1)
     print(3)
     time.sleep(1)
     print(2)
     time.sleep(1)
     print(1)
+    time.sleep(1)
+    
     # Create a variable that stores a full screen grab
     im = ImageGrab.grab()
     
