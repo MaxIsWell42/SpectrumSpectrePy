@@ -23,7 +23,7 @@ def closest_colour(requested_colour):
     return min_colours[min(min_colours.keys())]
 
 def get_colour_name(requested_colour):
-    """Get the closest color's human name """
+    """Get the color's human name. Returns the actual color if present, or just gives the closest one available."""
     try:
         closest_name = actual_name = webcolors.rgb_to_name(requested_colour)
     except ValueError:
@@ -31,7 +31,7 @@ def get_colour_name(requested_colour):
         actual_name = None
     if actual_name:
         return actual_name
-    else: 
+    else:
         return closest_name
 
 def colorDetect(image):
@@ -46,7 +46,6 @@ def colorDetect(image):
     
     # Get the dominant color, saved in RGB color sequence as a tuple
     dominant_color = color_thief.get_color(quality=1)
-    # print(dominant_color)
     dc_name = get_colour_name(dominant_color)
 
     # Build a color palette, and run get_colour_name on each
@@ -54,25 +53,40 @@ def colorDetect(image):
     palette = color_thief.get_palette(color_count=2, quality=5)
     for tup in palette:
         palette_list.append(get_colour_name(tup))
-
-    print("Dominant color: \n{}\nPalette: \n{}".format(dc_name, palette_list))
+        
+    # Print out the colors and descriptions for them   
+    print("Dominant color: \n{}\n".format(colorCase(dc_name)))
+    print("Color palette: \n")
+    for name in palette_list:
+        color_description = colorCase(name)
+        print("     Color name: {}\n".format(color_description))
 
 def colorCase(color):
     colors = {
-        1: "Red",
-        2: "Blue",
-        3: "Green",
-        4: "Black",
-        5: "Silver",
-        6: "Gray",
-        7: "White",
-        8: "Maroon",
-        9: "Purple",
-        10: "Fuchsia",
-        11: "Lime",
-        12: "Olive",
-        13: "Yellow",
-        14: "Navy",
-        15: "Teal",
-        16: "Aqua"
+        "red": "Red: Influences you to act. Red is the color of passion, and makes you want to act on desires such as hunger, frustration or satisfaction by buying or consuming. It can increase your heartrate and make you excited. This is why it is prevalent in almost all fast food logos.",
+        "blue": "Blue: Inspires calm and rational thought, blue is usually paired with few other colors as it's effect is most prevalent in simplicity.",
+        "green": "Green: Another calm color, green inspires us to relax and take it easy. This can possibly be used to trick you into not thinking enough about a decision. Can also be used as a vibrant color",
+        "black": "Black: Black is a quintessential 'sad' color with grey, usually used with muted cool colors. In Western culture it symbolizes mourning, whereas in East Asian cultures it means purity and rebirth. Can also be used to convey sophistication.",
+        "silver": "Silver: The metallic version of grey, it still keeps the coolness but is also more lively and playful. Used to convey an industrial, high-tech elegance or ornate glamourousness. It can help our minds with things like public speaking and eloquence.",
+        "grey": "Grey: A muted, sad color, grey is usually used with black to draw out feelings of somber and sadness, or can be used to convey seriousness and professionalism.",
+        "white": "White: Creates a minimalist aesthetic. Simple, clean and usually modern, white is pretty neutral and is usually paired with other colors to make their effects more pronounced.",
+        "maroon": "Maroon: Maroon is a dark red-brown color is used like red, but more reserved. It influences us to think something is sophisticated, luxurious and reserved, with a hint of pridefulness.",
+        "purple": "Purple: A mixture of blue(calm) and red(intense), purple is usually used to spark creative thinking.",
+        "fuchsia": "Fushsia: A vibrant combination of red and purple, this color can influence you to be more excited and creative, and draw out more action from that excitement.",
+        "lime": "Lime: A vibrant version of green, this a 'happy' color aimed to grab your attention and make you feel energized and alert.",
+        "olive": "Olive: A muted green, it can be used to represent growth, freshness and uniqueness. A good example of dark green being used is the Starbuck's logo.",
+        "yellow": "Yellow: The brightest and lightest of the 'happy' colors, yellow influences us to feel joy and optimism. Usually combined with other happy colors to have a vibrant, youthful effect to get you excited.",
+        "navy": "Navy: A dark blue, navy is usually used to convey importance and power, as well as intelligence, unity and stability.",
+        "teal": "Teal: A deep, muted blue-green color, teal is used in design as a less-basic blue with a splash of sophistication. It encourages calm and reflection, and is sometimes used to contrast with other 'sophisticated' colors. Can also be used to convey reliability.",
+        "aqua": "Aqua: A vibrant blue-green color, aqua makes us feel refreshed and calm, ready to take on anything. It connects to our expression and is associated with purity and openness.",
     }
+    return colors.get(color, "Invalid Color")
+
+# Links used for color study:
+# https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4383146/
+# https://99designs.com/blog/tips/how-color-impacts-emotions-and-behaviors/
+# https://www.verywellmind.com/color-psychology-2795824
+# https://www.bourncreative.com/meaning-of-the-color-silver/
+# https://colorpsychologymeaning.com/color-maroon-burgundy/
+
+
