@@ -18,6 +18,7 @@ def closest_colour(requested_colour):
     """Get the closest color as an rgb value, takes in RGB value like (42, 43, 51)"""
     min_colours = {}
     # Change the html4 in this line to css3 for more but unsupported colors. This only uses the 16 essential colors.
+    # Uses Euclidian formula: dist((x, y), (a, b)) = √(x - a)² + (y - b)²
     for key, name in webcolors.html4_hex_to_names.items():
         r_c, g_c, b_c = webcolors.hex_to_rgb(key)
         rd = (r_c - requested_colour[0]) ** 2
