@@ -3,6 +3,7 @@ from PIL import Image
 import time
 
 def captureDesktop():
+    """Captures the user's current desktop and stores it as a .jpg image. """
     # Wait 3 seconds so the user can switch to another screen, while counting down
     print(3)
     time.sleep(1)

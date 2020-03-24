@@ -10,8 +10,8 @@ from absl import flags
 # list_of_colors = [[255,0,0],[150,33,77],[75,99,23],[45,88,250],[250,0,255]]
 # color = [155,155,155]
 
+# Define the global flags
 FLAGS = flags.FLAGS
-
 
 # Snippet from https://stackoverflow.com/questions/9694165/convert-rgb-color-to-english-color-name-like-green-with-python
 def closest_colour(requested_colour):
@@ -39,7 +39,8 @@ def get_colour_name(requested_colour):
         return closest_name
 
 def colorDetect(image):
-    # Flag: Read the URL into an image(NOT CURRENTLY WORKING)
+    """Detect the colors in the image, format them to human names, and output them with descriptions."""
+    # Flag: Read the URL into an image
     if FLAGS.link:
         fd = urlopen(image)
         f = io.BytesIO(fd.read())
@@ -69,6 +70,7 @@ def colorDetect(image):
         print("     Color name: {}\n".format(color_description))
 
 def colorCase(color):
+    """Switch argument handler for the colors and their descriptions. """
     colors = {
         "red": "Red: Influences you to act. Red is the color of passion, and makes you want to act on desires such as hunger, frustration or satisfaction by buying or consuming. It can increase your heartrate and make you excited. This is why it is prevalent in almost all fast food logos.",
         "blue": "Blue: Inspires calm and rational thought, blue is usually paired with few other colors as it's effect is most prevalent in simplicity.",
